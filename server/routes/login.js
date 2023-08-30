@@ -50,7 +50,7 @@ body("email", "Invalid Email").isEmail()],async(req, res)=> {
 
     }catch(e){
         res.status(400).json({
-            message: e
+            message: e.message
 
         })
 
