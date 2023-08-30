@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 
-
-import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-
 export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -114,8 +109,7 @@ export default function Login() {
                             <input type={showPassword ? "text" : "password"} id="form3Example4c" className="form-control" aria-describedby="basic-addon2" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
                           </div>
-                          <div className="input-group-append mt-4 flex-fill form-group">
-                            <span className="input-group-text text-center" style={{ paddingTop: "10px", paddingBottom: "10px", marginTop: "28px", paddingRight: "10px" }} onClick={handleShowPassword}>
+                         
                               <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
                             </span>
                           </div>
