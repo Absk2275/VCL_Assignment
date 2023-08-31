@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 
+
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+
 export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -67,17 +72,15 @@ export default function Login() {
   return (
     <div>
 
-      <section className="100vh" style={{ backgroundColor: "#228cdc", height: "100vh" }}>
-        <div className="container h-100 lg-h-100">
+      <section className="100vh" style={{ backgroundColor: "#f3e5g6", height: "100vh" }}>
+        <div className="container h-100 lg-h-100" style={{color:"#555"}}>
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-12 col-xl-11" >
               <div className="card text-black h-75 my-2"  >
                 <div className="card-body p-md-5" >
                   <div className="row justify-content-center " >
                     <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-
-                      <p className="text-center h1 fw-bold mb-3 mx-1 mx-md-4 ">Login</p>
-
+                      <p className="text-center h1 fw-bold mb-3 mx-1 mx-md-4 form-title ">Login</p>
                       <form className="mx-1 mx-md-4" >
                         <p>{message}</p>
 
@@ -87,7 +90,6 @@ export default function Login() {
 
                           </span>
                         </div>
-
 
                         {err ? <p className='text-danger text-center'>{err}</p> : ""}
 
@@ -100,7 +102,6 @@ export default function Login() {
                           </div>
                         </div>
 
-
                         <div className="d-flex flex-row align-items-center mb-2">
                           <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0 form-group">
@@ -109,15 +110,12 @@ export default function Login() {
                             <input type={showPassword ? "text" : "password"} id="form3Example4c" className="form-control" aria-describedby="basic-addon2" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
                           </div>
-                         
+                          <div className="input-group-append mt-4 flex-fill form-group">
+                            <span className="input-group-text text-center" style={{ paddingTop: "10px", paddingBottom: "10px", marginTop: "28px", paddingRight: "10px" }} onClick={handleShowPassword}>
                               <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
                             </span>
                           </div>
                         </div>
-
-
-
-
 
                         <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-1">
                           <button type="submit" className="btn btn-primary btn-lg" onClick={handleLogin}>Login</button>
@@ -130,7 +128,7 @@ export default function Login() {
                     </div>
                     <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
 
-                      <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                      <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2lra2ltJTIwY29sbGVnZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
                         className="img-fluid loginimg" alt="Sample_image" />
 
                     </div>
