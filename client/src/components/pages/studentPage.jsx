@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import Navbar from '../Navbar';
-function App() {
+export default function StudentPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [contact, setContact] = useState('');
   const [pdf, setPdf] = useState(null);
+  const [success, setSuccess]= useState("");
+  const [err, setErr]= useState("");
+
+  const pdfInputRef = useRef(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,16 +21,31 @@ function App() {
     formData.append('contact', contact);
 
     try {
-      await axios.post('http://localhost:5000/create', formData, {
+      if(name==="" || pdf===""||email===""||contact==="")
+      {
+        setErr("All fields are required");
+      }
+      else{
+      await axios.post('https://collegeapps.onrender.com/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
 
-      alert('User created successfully');
-    } catch (error) {
+      setSuccess("Your application submitted successfully");
+      setName('');
+      setEmail('');
+      setContact('');
+      setPdf(null);
+      setErr('');
+      if (pdfInputRef.current) {
+        pdfInputRef.current.value = '';
+      }
+    }
+  } catch (error) {
       console.error(error);
-      alert('Error creating user');
+      setErr("Email already in use please try with different email");
+      setSuccess("");
     }
   };
 
@@ -34,10 +53,12 @@ function App() {
     <div>
       <Navbar />
     
-    <div style={{ backgroundColor: "#228cdc", height: "100vh", width:"100%" }}>
+    <div className="studentMain">
     <div className="container" >
-    <h1 className="text-center mb-4">User Registration</h1>
-    <form onSubmit={handleSubmit} className="border p-4 rounded">
+    <h1 className="text-center mb-4  form-title">Job Application</h1>
+    <form onSubmit={handleSubmit} className="border p-4 rounded bg-light">
+      <p className="text-center text-success">{success}</p>
+      <p className="text-center text-danger">{err}</p>
       <div className="mb-3">
         <label htmlFor="name" className="form-label">Name:</label>
         <input
@@ -46,7 +67,7 @@ function App() {
           id="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          required
+         
         />
       </div>
       <div className="mb-3">
@@ -57,26 +78,26 @@ function App() {
           id="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
+          
         />
       </div>
       <div className="mb-3">
         <label htmlFor="contact" className="form-label">Contact:</label>
         <input
-          type="text"
+          type="tel"
           className="form-control"
           id="contact"
           value={contact}
           onChange={(e) => setContact(e.target.value)}
-          required
+          
         />
       </div>
       <div className="mb-3">
-        <label htmlFor="pdf" className="form-label">Upload PDF:</label>
+        <label htmlFor="pdf" className="form-label">Upload Resume:</label>
         <input
           type="file"
           className="form-control"
-          id="pdf"
+          id="pdf" ref={pdfInputRef}
           onChange={(e) => setPdf(e.target.files[0])}
           accept=".pdf"
         />
@@ -89,4 +110,3 @@ function App() {
   );
 }
 
-export default App;
