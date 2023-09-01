@@ -7,15 +7,16 @@ export default function Navbar() {
             <nav className="topnav">
                 <span className="navbar-brand p-3" href="#">
                     <img src={image} alt="logo" style={{height:"16%", width:"16%"}}/>
-                   <span className="fs-4"> Sikkim University</span>
+                   <span className="lg-fs-4"> Sikkim University</span>
                 </span>
                
                 <div className="" >
                     <ul className="navbar-nav ">
-                      
-                        <li className="nav-item p-3">
+                        {(localStorage.getItem("authToken"))?(<li className="nav-item p-3">
                             <Logout />
-                        </li>
+                        </li>): ""}
+                      
+                        
                         
                     </ul>
                 </div>
