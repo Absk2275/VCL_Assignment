@@ -80,8 +80,9 @@ export default function StaffDashboard() {
             
           </div>
         </div>):(
+           <div className="table-responsive">
           <table className="table table-striped table-bordered">
-          <thead className="thead-dark">
+          <thead className="thead-dark text-center">
             <tr>
               <th>Name</th>
               <th>Email</th>
@@ -90,7 +91,7 @@ export default function StaffDashboard() {
               <th>Resume</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="text-center">
             {users.map((user) => (
               <tr key={user._id}>
                 <td>{user.name}</td>
@@ -102,7 +103,7 @@ export default function StaffDashboard() {
                     className="btn btn-primary"
                     onClick={() => handleDownload(user.pdfPath)}
                   >
-                    Download PDF
+                    Download
                   </button>
                     {" "}
                   <button
@@ -116,6 +117,7 @@ export default function StaffDashboard() {
             ))}
           </tbody>
         </table>
+        </div>
 
         )}
   
