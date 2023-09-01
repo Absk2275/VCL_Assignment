@@ -8,6 +8,7 @@ export default function StudentPage() {
   const [pdf, setPdf] = useState(null);
   const [success, setSuccess]= useState("");
   const [err, setErr]= useState("");
+  const [loading, setLoading] = useState(false);
 
   const pdfInputRef = useRef(null);
 
@@ -26,6 +27,7 @@ export default function StudentPage() {
         setErr("All fields are required");
       }
       else{
+        setLoading(true);
       await axios.post('https://collegeapps.onrender.com/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -33,6 +35,7 @@ export default function StudentPage() {
       });
 
       setSuccess("Your application submitted successfully");
+
       setName('');
       setEmail('');
       setContact('');
@@ -41,6 +44,7 @@ export default function StudentPage() {
       if (pdfInputRef.current) {
         pdfInputRef.current.value = '';
       }
+      setLoading(false);
     }
   } catch (error) {
       console.error(error);
@@ -55,12 +59,17 @@ export default function StudentPage() {
     
     <div className="studentMain">
     <div className="container" >
-    <h1 className="text-center mb-4  form-title">Job Application</h1>
+    <h1 className="text-center mb-4  form-title">Student Job Portal</h1>
     <form onSubmit={handleSubmit} className="border p-4 rounded bg-light">
+    {loading && (
+      <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-1">
+            <span className="spinner-border text-success spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            </div>
+          )}
       <p className="text-center text-success">{success}</p>
       <p className="text-center text-danger">{err}</p>
       <div className="mb-3">
-        <label htmlFor="name" className="form-label">Name:</label>
+        <label htmlFor="name" className="form-label form-title">Name:</label>
         <input
           type="text"
           className="form-control"
@@ -71,7 +80,7 @@ export default function StudentPage() {
         />
       </div>
       <div className="mb-3">
-        <label htmlFor="email" className="form-label">Email:</label>
+        <label htmlFor="email" className="form-label form-title">Email:</label>
         <input
           type="email"
           className="form-control"
@@ -82,7 +91,7 @@ export default function StudentPage() {
         />
       </div>
       <div className="mb-3">
-        <label htmlFor="contact" className="form-label">Contact:</label>
+        <label htmlFor="contact" className="form-label form-title">Contact:</label>
         <input
           type="tel"
           className="form-control"
@@ -93,7 +102,7 @@ export default function StudentPage() {
         />
       </div>
       <div className="mb-3">
-        <label htmlFor="pdf" className="form-label">Upload Resume:</label>
+        <label htmlFor="pdf" className="form-label form-title">Upload Resume:</label>
         <input
           type="file"
           className="form-control"
